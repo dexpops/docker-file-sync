@@ -29,8 +29,13 @@ then
   fi
 
   mkdir -p $WGET_DIR
-  wget $WGET_URL -O "$WGET_DIR/$WGET_FILE_NAME"
-  touch "$WGET_DIR/$WGET_FISNIHED_MARKER"
+
+  # Check if marker exists
+  if [ ! -f $WGET_DIR/$WGET_FISNIHED_MARKER ];
+  then
+    wget $WGET_URL -O "$WGET_DIR/$WGET_FILE_NAME"
+    touch "$WGET_DIR/$WGET_FISNIHED_MARKER"
+  fi
 
 else
 
@@ -39,4 +44,9 @@ else
 
 fi
 
-echo "Done syncing..."
+while true
+do
+  echo "Done syncing, created $WGET_DIR/$WGET_FISNIHED_MARKER"
+  stat "$WGET_DIR/$WGET_FISNIHED_MARKER"
+  sleep 10
+done

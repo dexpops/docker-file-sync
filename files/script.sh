@@ -32,8 +32,6 @@ then
   wget $WGET_URL -O "$WGET_DIR/$WGET_FILE_NAME"
   touch "$WGET_DIR/$WGET_FISNIHED_MARKER"
 
-  exit 0
-
 else
 
   echo "$METHOD is not supported"
@@ -41,4 +39,4 @@ else
 
 fi
 
-
+echo "Done syncing..."

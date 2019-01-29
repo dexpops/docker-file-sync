@@ -16,7 +16,6 @@ then
   if [ -z $WGET_DIR ]
   then
     WGET_DIR="/utxo"
-    mkdir -p $WGET_DIR
   fi
 
   if [ -z $WGET_FILE_NAME ]
@@ -29,6 +28,7 @@ then
     WGET_FISNIHED_MARKER=".finished_utxo"
   fi
 
+  mkdir -p $WGET_DIR
   wget $WGET_URL -O "$WGET_DIR/$WGET_FILE_NAME"
   touch "$WGET_DIR/$WGET_FISNIHED_MARKER"
 

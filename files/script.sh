@@ -1,11 +1,5 @@
 #!/bin/bash
 
-
-if [ -z $UTXO_MARKER ]
-then
-  UTXO_MARKER="/utxo/.finished_utxo"
-fi
-
 if [ -z $UTXO_SNAPSHOT_URL ]
 then
   UTXO_SNAPSHOT_URL="http://utxosets.blob.core.windows.net/public/utxo-snapshot-bitcoin-mainnet-551636.tar"

@@ -2,7 +2,9 @@ all: build run
 
 run:
 	docker stop utxo_sync
-	docker run --rm -it --name utxo_sync dexpops/docker-utxo-sync:latest
+	docker run --rm -it --name utxo_sync \
+	-v utxo_sync-volume:/utxo
+	dexpops/docker-utxo-sync:latest
 
 stop:
 	docker stop utxo_sync

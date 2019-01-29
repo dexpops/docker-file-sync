@@ -1,32 +1,44 @@
 #!/bin/bash
 
-if [ -z $UTXO_SNAPSHOT_URL ]
+if [ -z $METHOD ]
 then
-  UTXO_SNAPSHOT_URL="http://utxosets.blob.core.windows.net/public/utxo-snapshot-bitcoin-mainnet-551636.tar"
+  METHOD="wget"
 fi
 
-if [ -z $UTXO_SNAPSHOT_DIR ]
+if [ $METHOD == "wget" ]
 then
-  UTXO_SNAPSHOT_DIR="/utxo"
-  mkdir -p $UTXO_SNAPSHOT_DIR
+
+  if [ -z $WGET_URL ]
+  then
+    WGET_URL="http://utxosets.blob.core.windows.net/public/utxo-snapshot-bitcoin-mainnet-551636.tar"
+  fi
+
+  if [ -z $WGET_DIR ]
+  then
+    WGET_DIR="/utxo"
+    mkdir -p $WGET_DIR
+  fi
+
+  if [ -z $WGET_FILE_NAME ]
+  then
+    WGET_FILE_NAME="utxo-snapshot.tar"
+  fi
+
+  if [ -z $WGET_FISNIHED_MARKER ]
+  then
+    WGET_FISNIHED_MARKER=".finished_utxo"
+  fi
+
+  wget $WGET_URL -O "$WGET_DIR/$WGET_FILE_NAME"
+  touch "$WGET_DIR/$WGET_FISNIHED_MARKER"
+
+  exit 0
+
+else
+
+  echo "$METHOD is not supported"
+  exit 1
+
 fi
 
-if [ -z $UTXO_SNAPSHOT_DIR ]
-then
-  UTXO_SNAPSHOT_DIR="/utxo"
-fi
 
-if [ -z $UTXO_DOWNLOAD_FILE ]
-then
-  UTXO_DOWNLOAD_FILE="utxo-snapshot.tar"
-fi
-
-if [ -z $UTXO_FISNIHED_MARKER ]
-then
-  UTXO_FISNIHED_MARKER=".finished_utxo"
-fi
-
-wget $UTXO_SNAPSHOT_URL -O "$UTXO_SNAPSHOT_DIR/$UTXO_DOWNLOAD_FILE"
-touch "$UTXO_SNAPSHOT_DIR/$UTXO_FISNIHED_MARKER"
-
-ls -lastr  /utxo

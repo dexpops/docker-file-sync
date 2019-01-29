@@ -1,19 +1,20 @@
 all: build run
 
 run:
-	docker stop utxo_sync
-	docker run --rm -it --name utxo_sync \
-	-v utxo_sync-volume:/utxo \
-	-e UTXO_FISNIHED_MARKER=.finshed_test_marker \
-	dexpops/docker-utxo-sync:latest
+	docker stop file_sync
+	docker run --rm -it --name file_sync \
+	-v file_sync-volume:/utxo \
+	-e WGET_FISNIHED_MARKER=".finshed_test_marker" \
+	-e WGET_URL="http://utxosets.blob.core.windows.net/public/utxo-snapshot-bitcoin-mainnet-551636.tar" \
+	dexpops/docker-file-sync:latest
 
 stop:
-	docker stop utxo_sync
+	docker stop file_sync
 
 prune:
-	docker stop utxo_sync
-	docker rm utxo_sync
-	docker volume rm utxo_sync-volume
+	docker stop file_sync
+	docker rm file_sync
+	docker volume rm file_sync-volume
 
 build:
-	docker build -t dexpops/docker-utxo-sync:latest .
+	docker build -t dexpops/docker-file-sync:latest .

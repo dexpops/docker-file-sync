@@ -1,3 +1,1 @@
-# Bitcoin Docker image
-
-This is a test
+# Docker image for syncing files
